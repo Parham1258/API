@@ -66,7 +66,7 @@ def styles(file):
 @app.route("/favicon.ico")
 def icon(): return send_file("Assets/favicon.ico")
 
-debug=True
+debug=False
 print(color.Green+"Starting Server...")
 if debug:
     webbrowser.open("http://localhost:8080/")
