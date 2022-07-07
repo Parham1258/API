@@ -68,7 +68,7 @@ def icon(): return send_file("Assets/API.png")
 
 print(color.Green+"Starting Server...")
 #webbrowser.open("http://localhost:8080/")
-app.run(host='0.0.0.0', port=8080, debug=True)
+app.run(host='0.0.0.0', port=80, debug=False)
 #webbrowser.open("http://localhost:80/")
 #serve(app, host="0.0.0.0", port=80)
 sys.exit(2)
