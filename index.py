@@ -1,6 +1,6 @@
 #API
 import os
-from flask import Flask, render_template, send_file, request
+from flask import Flask, redirect, render_template, send_file, request
 import random
 import webbrowser
 from waitress import serve
@@ -47,24 +47,30 @@ app = Flask("app", template_folder="Templates")
 
 @app.errorhandler(404) 
 def Handler_404(error):
-    if random.randint(0, 12) == 0: return render_template("Secret 404.html")
-    else: return render_template("404.html")
+    if random.randint(0, 12) == 0: return render_template("Secret 404.html"), 404
+    else: return render_template("404.html"), 404
 @app.route("/")
-def Home(): return render_template("Home.html")
+def Home(): return render_template("Home.html"), 200
 @app.route("/API")
-def API(): return render_template("API.html")
+def API(): return render_template("API.html"), 200
 @app.route("/API/Password-Generator", methods=["GET", "POST"])
 def API_Password_Generator():
     characters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     generated_password = ""
-    for i in range(20): generated_password += random.choice(characters)
+    if "characters" in request.args:
+        try:
+            length = int(request.args["characters"])
+            if length > 100: length = 20
+        except: length = 20
+    else: length = 20
+    for i in range(length): generated_password += random.choice(characters)
     return "{ \"Generated Password\": \""+generated_password+"\" }", 200
 @app.route("/Assets/<file>")
 def styles(file):
   try: return send_file("Assets/"+file)
-  except IOError: return "File Doesn't Exists"
+  except IOError: return "File Doesn't Exists", 400
 @app.route("/favicon.ico")
-def icon(): return send_file("Assets/API.png")
+def icon(): return send_file("Assets/API.png"), 200
 
 print(color.Green+"Starting Server...")
 #webbrowser.open("http://localhost:8080/")
