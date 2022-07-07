@@ -66,12 +66,9 @@ def styles(file):
 @app.route("/favicon.ico")
 def icon(): return send_file("Assets/API.png")
 
-debug=False
 print(color.Green+"Starting Server...")
-if debug:
-    webbrowser.open("http://localhost:8080/")
-    app.run(host='0.0.0.0', port=8080, debug=True)
-else:
-    webbrowser.open("http://localhost:80/")
-    serve(app, host="0.0.0.0", port=80)
+#webbrowser.open("http://localhost:8080/")
+app.run(host='0.0.0.0', port=8080, debug=True)
+#webbrowser.open("http://localhost:80/")
+#serve(app, host="0.0.0.0", port=80)
 sys.exit(2)
