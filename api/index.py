@@ -64,7 +64,7 @@ def styles(file):
   try: return send_file("Assets/"+file)
   except IOError: return "File Doesn't Exists"
 @app.route("/favicon.ico")
-def icon(): return send_file("Assets/favicon.ico")
+def icon(): return send_file("Assets/API.png")
 
 debug=False
 print(color.Green+"Starting Server...")
