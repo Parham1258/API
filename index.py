@@ -1,5 +1,4 @@
 #API
-from crypt import methods
 import os
 from flask import Flask, render_template, send_file, request
 import random
