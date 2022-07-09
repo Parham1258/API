@@ -1,8 +1,8 @@
 #API
 import os
-from flask import Flask, redirect, render_template, send_file, request
+from flask import Flask, render_template, send_file, request
 import random
-#import webbrowser
+from waitress import serve
 import sys
 
 def clear_console(): #Credits: Doci Team
@@ -43,9 +43,7 @@ def Handler_404(error):
     if random.randint(0, 12) == 0: return render_template("Secret 404.html"), 404
     else: return render_template("404.html"), 404
 @app.route("/")
-def Home():
-    print(request.remote_user)
-    return render_template("Home.html"), 200
+def Home(): return render_template("Home.html"), 200
 @app.route("/API")
 def API(): return render_template("API.html"), 200
 @app.route("/API/Password-Generator", methods=["GET", "POST"])
@@ -68,8 +66,6 @@ def Assets(File):
 def Icon(): return send_file("Assets/API.png"), 200
 
 print(color.Green+"Starting Server...")
-#webbrowser.open("http://localhost:8080/")
-app.run(host='0.0.0.0', port=80, debug=False)
-#webbrowser.open("http://localhost:80/")
-#serve(app, host="0.0.0.0", port=80)
+#app.run(host='0.0.0.0', port=80, debug=True)
+serve(app, host="0.0.0.0", port=80)
 sys.exit(2)
