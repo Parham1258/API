@@ -15,11 +15,10 @@ def clear_console(): #Credits: Doci Team
     return
 
 def change_title(title: str): #Credits: Doci Team
-    if os.name in ('nt', 'dos'): #Check OS Name
+    if os.name in ["nt", "dos"]: #Check OS Name
         try: os.system("title "+title)
         except: pass
     return
-
 
 class color: #Credits: Doci Team
     Red = "\033[91m"
