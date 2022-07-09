@@ -2,55 +2,50 @@
 import os
 from flask import Flask, redirect, render_template, send_file, request
 import random
-import webbrowser
-from waitress import serve
+#import webbrowser
 import sys
 
-class color: #Credits: Doci Team
-    Red = '\033[91m'
-    Green = '\033[92m'
-    Blue = '\033[94m'
-    Cyan = '\033[96m'
-    White = '\033[97m'
-    Yellow = '\033[93m'
-    Magenta = '\033[95m'
-    Grey = '\033[90m'
-    Black = '\033[90m'
-    Default = '\033[99m'
-
-
 def clear_console(): #Credits: Doci Team
-    if os.name in ('nt', 'dos'): #Check OS Name
-        try:
-            os.system("cls")
-        except:
-            pass
+    if os.name in ["nt", "dos"]: #Check OS Name
+        try: os.system("cls")
+        except: pass
     else:
-        try:
-            os.system("clear")
-        except:
-            pass
+        try: os.system("clear")
+        except: pass
+    return
 
 def change_title(title: str): #Credits: Doci Team
     if os.name in ('nt', 'dos'): #Check OS Name
-        try:
-            os.system("title "+title)
-        except:
-            pass
-    else:
-            pass
+        try: os.system("title "+title)
+        except: pass
+    return
+
+
+class color: #Credits: Doci Team
+    Red = "\033[91m"
+    Green = "\033[92m"
+    Blue = "\033[94m"
+    Cyan = "\033[96m"
+    White = "\033[97m"
+    Yellow = "\033[93m"
+    Magenta = "\033[95m"
+    Grey = "\033[90m"
+    Black = "\033[90m"
+    Default = "\033[99m"
 
 change_title("API")
 clear_console()
 
-app = Flask("app", template_folder="Templates")
+app = Flask("Parham API", template_folder="Templates")
 
 @app.errorhandler(404) 
 def Handler_404(error):
     if random.randint(0, 12) == 0: return render_template("Secret 404.html"), 404
     else: return render_template("404.html"), 404
 @app.route("/")
-def Home(): return render_template("Home.html"), 200
+def Home():
+    print(request.remote_user)
+    return render_template("Home.html"), 200
 @app.route("/API")
 def API(): return render_template("API.html"), 200
 @app.route("/API/Password-Generator", methods=["GET", "POST"])
@@ -65,12 +60,12 @@ def API_Password_Generator():
     else: length = 20
     for i in range(length): generated_password += random.choice(characters)
     return "{ \"Generated Password\": \""+generated_password+"\" }", 200
-@app.route("/Assets/<file>")
-def styles(file):
-  try: return send_file("Assets/"+file)
-  except IOError: return "File Doesn't Exists", 400
+@app.route("/Assets/<string:File>")
+def Assets(File):
+  try: return send_file("Assets/"+File), 200
+  except IOError: return "File Doesn't Exists", 404
 @app.route("/favicon.ico")
-def icon(): return send_file("Assets/API.png"), 200
+def Icon(): return send_file("Assets/API.png"), 200
 
 print(color.Green+"Starting Server...")
 #webbrowser.open("http://localhost:8080/")
