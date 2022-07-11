@@ -32,7 +32,7 @@ class color: #Credits: Doci Team
     Black = "\033[90m"
     Default = "\033[99m"
 
-change_title("API")
+change_title("Parham API")
 clear_console()
 
 app = Flask("Parham API", template_folder="Templates")
