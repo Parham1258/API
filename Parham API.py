@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, send_file, request
 import random
 #from waitress import serve
-import sys
+#import sys
 
 def clear_console(): #Credits: Doci Team
     if os.name in ["nt", "dos"]: #Check OS Name
@@ -67,4 +67,4 @@ def Icon(): return send_file("Assets/API.png"), 200
 print(color.Green+"Starting Server...")
 #app.run(host="0.0.0.0", port=80, debug=True)
 #serve(app, host="0.0.0.0", port=80)
-sys.exit(2)
+#sys.exit(2)
