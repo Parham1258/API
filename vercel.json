@@ -1,9 +1,11 @@
 {
     "version": 2,
-    "builds": [
-        { "src": "API.py", "use": "@now/python" }
-    ],
-    "routes": [
-        { "src": "/(.*)", "dest": "API.py" }
-    ]
+    "builds": [{
+        "src": "./Parham API.py",
+        "use": "@vercel/python"
+    }],
+    "routes": [{
+        "src": "/(.*)",
+        "dest": "/Parham API.py"
+    }]
 }
