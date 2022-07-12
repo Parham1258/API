@@ -1,7 +1,8 @@
 # Parham API
 import os
-from flask import Flask, render_template, send_file, request
+from flask import Flask, request, render_template, send_file, redirect
 import random
+import time
 #from waitress import serve
 #import sys
 
@@ -62,7 +63,7 @@ def Assets(File):
   try: return send_file("Assets/"+File), 200
   except IOError: return "File Doesn't Exists", 404
 @app.route("/favicon.ico")
-def Icon(): return send_file("Assets/API.png"), 200
+def Icon(): return redirect("/Assets/API.png"), 301
 
 print(color.Green+"Starting Server...")
 #app.run(host="0.0.0.0", port=80, debug=True)
