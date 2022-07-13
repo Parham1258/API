@@ -63,6 +63,8 @@ def API_8ball():
     words = ["Yes", "no", "maybe", "not now", "never", "100%", "nope", "Don't count it in", "Yeah", "no u"]
     word = random.choice(words)
     return "{ \"8ball\": \""+word+"\" }", 200
+@app.route("/API/UNIX", methods=["GET", "POST"])
+def API_UNIX(): return "{ \"UNIX\": \""+time.time()+"\" }", 200
 @app.route("/Assets/<string:File>")
 def Assets(File):
   try: return send_file("Assets/"+File), 200
