@@ -58,6 +58,11 @@ def API_Password_Generator():
     else: length = 20
     for i in range(length): generated_password += random.choice(characters)
     return "{ \"Generated Password\": \""+generated_password+"\" }", 200
+@app.route("/API/8ball", methods=["GET", "POST"])
+def API_8ball():
+    words = ["Yes", "no", "maybe", "not now", "never", "100%", "nope", "Don't count it in", "Yeah", "no u"]
+    word = random.choice(words)
+    return "{ \"Generated Password\": \""+word+"\" }", 200
 @app.route("/Assets/<string:File>")
 def Assets(File):
   try: return send_file("Assets/"+File), 200
