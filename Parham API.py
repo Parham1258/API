@@ -50,9 +50,9 @@ def API(): return render_template("API.html"), 200
 def API_Password_Generator():
     characters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     generated_password = ""
-    if "characters" in request.args:
+    if "Characters" in request.args:
         try:
-            length = int(request.args["characters"])
+            length = int(request.args["Characters"])
             if length > 100: length = 20
         except: length = 20
     else: length = 20
@@ -65,6 +65,22 @@ def API_8ball():
     return "{ \"8ball\": \""+word+"\" }", 200
 @app.route("/API/UNIX", methods=["GET", "POST"])
 def API_UNIX(): return "{ \"UNIX\": \""+str(time.time())+"\" }", 200
+@app.route("/API/Random-Number")
+def API_Random_Number():
+    if "From" in request.args and "To" in request.args:
+        try:
+            From = int(request.args["From"])
+            To = int(request.args["To"])
+            if From >= To:
+                From = 1
+                To = 10
+        except:
+            From = 1
+            To = 10
+    else:
+        From = 1
+        To = 10
+    return "{ \"Generated Password\": \""+str(random.randint(From, To))+"\" }", 200
 @app.route("/Assets/<string:File>")
 def Assets(File):
   try: return send_file("Assets/"+File), 200
