@@ -80,7 +80,8 @@ def API_Random_Number():
     else:
         From = 1
         To = 10
-    return "{ \"Generated Password\": \""+str(random.randint(From, To))+"\" }", 200
+    number = random.randint(From, To)
+    return "{ \"Generated Password\": \""+str(number)+"\" }", 200
 @app.route("/Assets/<string:File>")
 def Assets(File):
   try: return send_file("Assets/"+File), 200
