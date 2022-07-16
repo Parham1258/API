@@ -60,7 +60,7 @@ def API_Password_Generator():
     return "{ \"Generated Password\": \""+generated_password+"\" }", 200
 @app.route("/API/8ball", methods=["GET", "POST"])
 def API_8ball():
-    words = ["Yes", "no", "maybe", "not now", "never", "100%", "nope", "Don't count it in", "Yeah", "no u"]
+    words = ["Yes", "no", "maybe", "not now", "never", "100%", "nope", "idk", "Yeah", "no u", "ye", "No"]
     word = random.choice(words)
     return "{ \"8ball\": \""+word+"\" }", 200
 @app.route("/API/UNIX", methods=["GET", "POST"])
@@ -81,6 +81,23 @@ def API_Random_Number():
         From = 1
         To = 10
     number = random.randint(From, To)
+    return "{ \"Generated Password\": \""+str(number)+"\" }", 200
+@app.route("/API/Random-Floating-Number")
+def API_Floating_Random_Number():
+    if "From" in request.args and "To" in request.args:
+        try:
+            From = float(request.args["From"])
+            To = float(request.args["To"])
+            if From >= To:
+                From = 1
+                To = 10
+        except:
+            From = 1
+            To = 10
+    else:
+        From = 1
+        To = 10
+    number = random.uniform(From, To)
     return "{ \"Generated Password\": \""+str(number)+"\" }", 200
 @app.route("/Assets/<string:File>")
 def Assets(File):
