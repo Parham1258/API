@@ -6,18 +6,18 @@ import time
 #from waitress import serve
 #import sys
 
+def change_title(title: str): #Credits: Doci Team
+    if os.name in ["nt", "dos"]: #Check OS Name
+        try: os.system("title "+title)
+        except: pass
+    return
+
 def clear_console(): #Credits: Doci Team
     if os.name in ["nt", "dos"]: #Check OS Name
         try: os.system("cls")
         except: pass
     else:
         try: os.system("clear")
-        except: pass
-    return
-
-def change_title(title: str): #Credits: Doci Team
-    if os.name in ["nt", "dos"]: #Check OS Name
-        try: os.system("title "+title)
         except: pass
     return
 
