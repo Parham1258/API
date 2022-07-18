@@ -72,6 +72,7 @@ def API_Reverse_Text():
     Text.replace("\"", "\\\"")
     Reversed_Text = Text[::-1]
     return "{ \"Reversed Text\": \""+Reversed_Text+"\" }", 200
+@app.route("/API/Random-Number")
 def API_Random_Number():
     if "From" in request.args and "To" in request.args:
         try:
