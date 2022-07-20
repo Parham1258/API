@@ -72,7 +72,7 @@ def API_Reverse_Text():
     Text.replace("\"", "\\\"")
     Reversed_Text = Text[::-1]
     return "{ \"Reversed Text\": \""+Reversed_Text+"\" }", 200
-@app.route("/API/Random-Number")
+@app.route("/API/Random-Number", methods=["GET", "POST"])
 def API_Random_Number():
     if "From" in request.args and "To" in request.args:
         try:
@@ -89,7 +89,7 @@ def API_Random_Number():
         To = 10
     number = random.randint(From, To)
     return "{ \"Random Number\": \""+str(number)+"\" }", 200
-@app.route("/API/Random-Floating-Number")
+@app.route("/API/Random-Floating-Number", methods=["GET", "POST"])
 def API_Floating_Random_Number():
     if "From" in request.args and "To" in request.args:
         try:
@@ -108,8 +108,8 @@ def API_Floating_Random_Number():
     return "{ \"Random Floating Number\": \""+str(number)+"\" }", 200
 @app.route("/Assets/<string:File>")
 def Assets(File):
-  try: return send_file("Assets/"+File), 200
-  except IOError: return "File Doesn't Exists", 404
+  if os.path.exists("Assets/"+File): return send_file("Assets/"+File), 200
+  else: return "File Doesn't Exists", 404
 @app.route("/favicon.ico")
 def Icon(): return redirect("/Assets/API.png"), 301
 
