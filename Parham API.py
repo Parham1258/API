@@ -1,6 +1,6 @@
 # Parham API
 import os
-from flask import Flask, request, render_template, send_file, redirect
+from flask import Flask, render_template, request, abort, send_file, redirect
 import random
 import time
 #from waitress import serve
@@ -36,12 +36,24 @@ class color: #Credits: Doci Team
 change_title("Parham API")
 clear_console()
 
+Rate_Limits = {}
+
 app = Flask("Parham API", template_folder="Templates")
 
 @app.errorhandler(404) 
 def Handler_404(error):
     if random.randint(0, 12) == 0: return render_template("Secret 404.html"), 404
     else: return render_template("404.html"), 404
+@app.errorhandler(429)
+def Handler_429(error): return render_template("Rate Limit.html"), 429
+@app.before_request
+def Rate_Limit():
+    if not request.path.startswith("/Assets/"):
+        global Rate_Limits
+        if request.remote_addr in Rate_Limits:
+            if Rate_Limits[request.remote_addr] > time.time(): abort(429)
+            Rate_Limits[request.remote_addr] += 2
+        else: Rate_Limits[request.remote_addr] = time.time() + 2
 @app.route("/")
 def Home(): return render_template("Home.html"), 200
 @app.route("/API")
