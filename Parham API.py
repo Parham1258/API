@@ -52,8 +52,8 @@ def Rate_Limit():
         global Rate_Limits
         if request.remote_addr in Rate_Limits:
             if Rate_Limits[request.remote_addr] > time.time(): abort(429)
-            Rate_Limits[request.remote_addr] += 2
-        else: Rate_Limits[request.remote_addr] = time.time() + 2
+            Rate_Limits[request.remote_addr] += 4
+        else: Rate_Limits[request.remote_addr] = time.time() + 4
 @app.route("/")
 def Home(): return render_template("Home.html"), 200
 @app.route("/API")
