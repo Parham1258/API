@@ -122,7 +122,7 @@ def API_Floating_Random_Number():
     return {"Random Floating Number": str(number)}, 200
 @app.route("/Assets/<string:File>")
 def Assets(File):
-  if os.path.exists("Assets\\"+File): return send_file("Assets/"+File), 200
+  if os.path.exists("Assets/"+File): return send_file("Assets/"+File), 200
   else: return "File Doesn't Exists", 404
 @app.route("/favicon.ico")
 def Icon(): return redirect("/Assets/API.png"), 301
