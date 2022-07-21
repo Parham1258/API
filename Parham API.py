@@ -45,7 +45,7 @@ def Handler_404(error):
     if random.randint(0, 12) == 0: return render_template("Secret 404.html"), 404
     else: return render_template("404.html"), 404
 @app.errorhandler(429)
-def Handler_429(error): return render_template("Rate Limit.html"), 429
+def Handler_429(error): return "", 429
 @app.before_request
 def Rate_Limit():
     if not request.path.startswith("/Assets/"):
