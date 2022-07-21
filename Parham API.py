@@ -1,8 +1,8 @@
 # Parham API
 import os
 from flask import Flask, render_template, request, abort, send_file, redirect
-import random
 import time
+import random
 #from waitress import serve
 #import sys
 
@@ -51,9 +51,11 @@ def Rate_Limit():
     if not request.path.startswith("/Assets/"):
         global Rate_Limits
         if request.remote_addr in Rate_Limits:
-            if Rate_Limits[request.remote_addr] > time.time(): abort(429)
-            Rate_Limits[request.remote_addr] += 4
-        else: Rate_Limits[request.remote_addr] = time.time() + 4
+            if Rate_Limits[request.remote_addr] > time.time(): Rate_Limited = True
+            else: Rate_Limited = False
+            Rate_Limits[request.remote_addr] += 2
+            if Rate_Limited: abort(429)
+        else: Rate_Limits[request.remote_addr] = time.time() + 2
 @app.route("/")
 def Home(): return render_template("Home.html"), 200
 @app.route("/API")
